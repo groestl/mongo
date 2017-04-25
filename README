@@ -1,3 +1,5 @@
+A merge of mysql-server and mongodb. Demonstrating `git merge --allow-unrelated-histories`. TBD: find out if licenses are compatible.
+
 MySQL Server 5.7
 
 This is a release of MySQL, a dual-license SQL database server.
