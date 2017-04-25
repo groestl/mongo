@@ -1,0 +1,216 @@
+# -*- mode: python -*-
+
+Import("env")
+
+env = env.Clone()
+
+env.Library(
+    target='update',
+    source=[
+        'modifier_add_to_set.cpp',
+        'modifier_bit.cpp',
+        'modifier_compare.cpp',
+        'modifier_current_date.cpp',
+        'modifier_inc.cpp',
+        'modifier_object_replace.cpp',
+        'modifier_pop.cpp',
+        'modifier_pull.cpp',
+        'modifier_pull_all.cpp',
+        'modifier_push.cpp',
+        'modifier_rename.cpp',
+        'modifier_set.cpp',
+        'modifier_unset.cpp',
+    ],
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/base',
+        '$BUILD_DIR/mongo/db/service_context',
+        '$BUILD_DIR/mongo/db/logical_clock',
+        '$BUILD_DIR/mongo/db/logical_time',
+        '$BUILD_DIR/mongo/db/bson/dotted_path_support',
+        '$BUILD_DIR/mongo/db/matcher/expressions',
+        '$BUILD_DIR/mongo/db/update/update_common',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_add_to_set_test',
+    source='modifier_add_to_set_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_bit_test',
+    source='modifier_bit_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_compare_test',
+    source='modifier_compare_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_current_date_test',
+    source='modifier_current_date_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        '$BUILD_DIR/mongo/db/service_context_noop_init',
+        '$BUILD_DIR/mongo/db/logical_clock_test_fixture',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_inc_test',
+    source='modifier_inc_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_object_replace_test',
+    source='modifier_object_replace_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        '$BUILD_DIR/mongo/db/service_context_noop_init',
+        '$BUILD_DIR/mongo/db/logical_clock_test_fixture',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_pop_test',
+    source='modifier_pop_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_push_sorter_test',
+    source='modifier_push_sorter_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/db/query/collation/collator_interface_mock',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_pull_all_test',
+    source='modifier_pull_all_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_pull_test',
+    source='modifier_pull_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        '$BUILD_DIR/mongo/db/query/collation/collator_interface_mock',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_push_test',
+    source='modifier_push_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_rename_test',
+    source='modifier_rename_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_set_test',
+    source='modifier_set_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        'update',
+    ],
+)
+
+env.CppUnitTest(
+    target='modifier_unset_test',
+    source='modifier_unset_test.cpp',
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/bson/mutable/mutable_bson_test_utils',
+        'update',
+    ],
+)
+
+env.Library(
+    target='write_ops_parsers',
+    source=[
+        'write_ops_parsers.cpp',
+    ],
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/base',
+        '$BUILD_DIR/mongo/db/dbmessage',
+    ],
+)
+
+env.CppUnitTest(
+    target='write_ops_parsers_test',
+    source='write_ops_parsers_test.cpp',
+    LIBDEPS=[
+        'write_ops_parsers',
+        '$BUILD_DIR/mongo/client/clientdriver',
+    ],
+)
+
+env.Library(
+    target="write_ops",
+    source=[
+        "delete.cpp",
+        "insert.cpp",
+        "parsed_delete.cpp",
+        "parsed_update.cpp",
+        "update.cpp",
+        "update_lifecycle_impl.cpp",
+        "update_result.cpp",
+        "write_ops_exec.cpp",
+    ],
+    LIBDEPS=[
+        '$BUILD_DIR/mongo/base',
+        '$BUILD_DIR/mongo/db/catalog/collection_info_cache',
+        '$BUILD_DIR/mongo/db/concurrency/lock_manager',
+        '$BUILD_DIR/mongo/db/matcher/expressions_mongod_only',
+        '$BUILD_DIR/mongo/db/query/query',
+        '$BUILD_DIR/mongo/db/repl/repl_coordinator_impl',
+        '$BUILD_DIR/mongo/db/service_context',
+        '$BUILD_DIR/mongo/db/update/array_filter',
+        '$BUILD_DIR/mongo/db/update/update_driver',
+        '$BUILD_DIR/mongo/db/introspect',
+        '$BUILD_DIR/mongo/db/curop_metrics',
+        #'$BUILD_DIR/mongo/db/commands/dcommands', # CYCLE
+    ],
+    LIBDEPS_TAGS=[
+        # TODO(ADAM, 2017-04-18): See `CYCLE` tags above.
+        'illegal_cyclic_or_unresolved_dependencies_whitelisted',
+    ],
+)
